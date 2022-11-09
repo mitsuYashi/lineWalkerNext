@@ -1,0 +1,14 @@
+version: '3'
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+    volumes:
+      - ./next-app:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: sh -c "yarn && yarn dev"
+    ports:
+      - "8000:3000"
