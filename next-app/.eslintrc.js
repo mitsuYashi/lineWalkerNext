@@ -8,7 +8,6 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:import/recommended',
     'plugin:import/warnings',
-    'prettier',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
