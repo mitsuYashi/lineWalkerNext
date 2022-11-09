@@ -4,16 +4,16 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['plugin:import/recommended', 'plugin:import/warnings'],
+  extends: ["plugin:import/recommended", "plugin:import/warnings"],
   overrides: [],
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    ecmaVersion: "latest",
+    sourceType: "module",
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ["react", "@typescript-eslint"],
   rules: {
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
   },
 };

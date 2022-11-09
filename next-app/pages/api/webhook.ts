@@ -1,7 +1,7 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { WebhookRequestBody } from '@line/bot-sdk';
-import { Middleware } from '@line/bot-sdk/lib/middleware';
-import * as line from '../../lib/line';
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { WebhookRequestBody } from "@line/bot-sdk";
+import { Middleware } from "@line/bot-sdk/lib/middleware";
+import * as line from "../../lib/line";
 
 export const config = {
   api: {
@@ -26,27 +26,27 @@ const handler: NextApiHandler = async (
   res: NextApiResponse
 ) => {
   try {
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       await runMiddleware(req, res, line.middleware);
 
       const body: WebhookRequestBody = req.body;
       await Promise.all(
         body.events.map((event) =>
           (async () => {
-            if (event.mode === 'active') {
+            if (event.mode === "active") {
               switch (event.type) {
-                case 'message': {
+                case "message": {
                   const name = event.source.userId
                     ? (await line.client.getProfile(event.source.userId))
                         .displayName
-                    : 'User';
+                    : "User";
                   await line.client.replyMessage(event.replyToken, {
-                    type: 'text',
+                    type: "text",
                     text: `Hi, ${name}!`,
                   });
                   break;
                 }
-                case 'follow': {
+                case "follow": {
                   break;
                 }
               }
