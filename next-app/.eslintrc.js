@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["plugin:import/recommended", "prettier"],
+  extends: ["prettier"],
   overrides: [],
   parser: "@typescript-eslint/parser",
   parserOptions: {
