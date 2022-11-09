@@ -4,11 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'next/core-web-vitals',
-    'plugin:import/recommended',
-    'plugin:import/warnings',
-  ],
+  extends: ['plugin:import/recommended', 'plugin:import/warnings'],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
