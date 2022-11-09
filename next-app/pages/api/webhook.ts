@@ -15,7 +15,7 @@ const runMiddleware = async (
   fn: Middleware
 ) => {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result: unknown) =>
+    fn(req, res, (result) =>
       result instanceof Error ? reject(result) : resolve(result)
     );
   });
