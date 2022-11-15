@@ -35,20 +35,22 @@ const handler: NextApiHandler = async (
           (async () => {
             if (event.mode === "active") {
               switch (event.type) {
-                case "message": {
+                case "message":
                   const name = event.source.userId
                     ? (await line.client.getProfile(event.source.userId))
                         .displayName
                     : "User";
+                  const userId = event.source.userId
+                    ? (await line.client.getProfile(event.source.userId)).userId
+                    : "User";
                   await line.client.replyMessage(event.replyToken, {
                     type: "text",
-                    text: `Hi, ${name}!`,
+                    text: `Hi, ${name}, ${userId}!`,
                   });
                   break;
-                }
-                case "follow": {
+
+                case "follow":
                   break;
-                }
               }
             }
           })()
