@@ -45,7 +45,7 @@ const handler: NextApiHandler = async (
                   );
                   await line.client.replyMessage(event.replyToken, {
                     type: "text",
-                    text: `Hi, ${name}, ${userId.userId}!`,
+                    text: `Hi, ${userId.userId}!`,
                   });
                   break;
 
