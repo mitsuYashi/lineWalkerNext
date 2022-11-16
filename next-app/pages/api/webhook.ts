@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { WebhookRequestBody } from "@line/bot-sdk";
+import { Client, WebhookRequestBody } from "@line/bot-sdk";
 import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
 
@@ -36,16 +36,16 @@ const handler: NextApiHandler = async (
             if (event.mode === "active") {
               switch (event.type) {
                 case "message":
-                  const name = event.source.userId
-                    ? (await line.client.getProfile(event.source.userId))
-                        .displayName
-                    : "User";
-                  const userId = event.source.userId
-                    ? (await line.client.getProfile(event.source.userId)).userId
-                    : "User";
+                  const name = await line.client.getProfile(
+                    event.source.userId ?? ""
+                  );
+
+                  const userId = await line.client.getProfile(
+                    event.source.userId ?? ""
+                  );
                   await line.client.replyMessage(event.replyToken, {
                     type: "text",
-                    text: `Hi, ${name}, ${userId}!`,
+                    text: `Hi, ${name}, ${userId.userId}!`,
                   });
                   break;
 
