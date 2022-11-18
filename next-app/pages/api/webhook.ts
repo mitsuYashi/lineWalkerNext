@@ -23,15 +23,13 @@ const runMiddleware = async (
 };
 
 const handleEventDefaultMessage = async (events: MessageEvent) => {
-  if (events.message.type === "text") {
-    const name = await line.client.getProfile(events.source?.userId ?? "");
+  const name = await line.client.getProfile(events.source?.userId ?? "");
 
-    const userId = await line.client.getProfile(events.source?.userId ?? "");
-    await line.client.replyMessage(events.replyToken, {
-      type: "text",
-      text: `対応外のメッセージです${events.message.text}`,
-    });
-  }
+  const userId = await line.client.getProfile(events.source?.userId ?? "");
+  await line.client.replyMessage(events.replyToken, {
+    type: "text",
+    text: `対応外のメッセージです${events.message.type}`,
+  });
 };
 
 const handler: NextApiHandler = async (
