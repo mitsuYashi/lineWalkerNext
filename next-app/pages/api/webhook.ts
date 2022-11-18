@@ -56,7 +56,9 @@ const handler: NextApiHandler = async (
                   );
                   await line.client.replyMessage(event.replyToken, {
                     type: "text",
-                    text: `対応外のメッセージです${event.message.type}`,
+                    text: `対応外のメッセージです${
+                      event.message.type == "text" ? event.message.text : null
+                    }`,
                   });
                   break;
 
