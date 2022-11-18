@@ -1,7 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { Client, WebhookRequestBody } from "@line/bot-sdk";
+import { Client, WebhookEvent, WebhookRequestBody } from "@line/bot-sdk";
 import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
+import { MessageEvent } from "@line/bot-sdk/lib/types";
 
 export const config = {
   api: {
@@ -21,6 +22,18 @@ const runMiddleware = async (
   });
 };
 
+const handleEventDefaultMessage = async (events: MessageEvent) => {
+  if (events.message.type === "text") {
+    const name = await line.client.getProfile(events.source?.userId ?? "");
+
+    const userId = await line.client.getProfile(events.source?.userId ?? "");
+    await line.client.replyMessage(events.replyToken, {
+      type: "text",
+      text: `対応外のメッセージです${events.message.text}`,
+    });
+  }
+};
+
 const handler: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -36,17 +49,7 @@ const handler: NextApiHandler = async (
             if (event.mode === "active") {
               switch (event.type) {
                 case "message":
-                  const name = await line.client.getProfile(
-                    event.source.userId ?? ""
-                  );
-
-                  const userId = await line.client.getProfile(
-                    event.source.userId ?? ""
-                  );
-                  await line.client.replyMessage(event.replyToken, {
-                    type: "text",
-                    text: `対応外のメッセージです${event.message.type}`,
-                  });
+                  handleEventDefaultMessage(event);
                   break;
 
                 case "follow":
