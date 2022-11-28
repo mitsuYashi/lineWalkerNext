@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { Client, WebhookEvent, WebhookRequestBody } from "@line/bot-sdk";
+import { WebhookRequestBody } from "@line/bot-sdk";
 import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
 import { MessageEvent } from "@line/bot-sdk/lib/types";
@@ -21,6 +21,9 @@ const runMiddleware = async (
     );
   });
 };
+
+// derived:com.google.step_count.delta:com.google.android.gms:estimated_steps
+// derived:com.google.step_count.delta:com.google.android.gms:estimated_steps
 
 const handleEventDefaultMessage = async (events: MessageEvent) => {
   const name = await line.client.getProfile(events.source?.userId ?? "");
@@ -54,13 +57,23 @@ const handler: NextApiHandler = async (
                   const userId = await line.client.getProfile(
                     event.source?.userId ?? ""
                   );
-                  await line.client.replyMessage(event.replyToken, {
-                    type: "text",
-                    // text: `対応外のメッセージです`,
-                    text: `${
-                      event.message.type == "text" ? event.message.text : null
-                    }`,
-                  });
+                  if (
+                    event.message.type == "text" &&
+                    event.message.text == "歩数取得"
+                  ) {
+                    await line.client.replyMessage(event.replyToken, {
+                      type: "text",
+                      text: "",
+                    });
+                  } else {
+                    await line.client.replyMessage(event.replyToken, {
+                      type: "text",
+                      text: `対応外のメッセージです`,
+                      // text: `${
+                      //   event.message.type == "text" ? event.message.text : null
+                      // }`,
+                    });
+                  }
                   break;
 
                 case "follow":
