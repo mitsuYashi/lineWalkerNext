@@ -3,6 +3,7 @@ import { WebhookRequestBody } from "@line/bot-sdk";
 import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
 import { MessageEvent } from "@line/bot-sdk/lib/types";
+import axios from "axios";
 
 export const config = {
   api: {
@@ -57,21 +58,25 @@ const handler: NextApiHandler = async (
                   const userId = await line.client.getProfile(
                     event.source?.userId ?? ""
                   );
+
                   if (
                     event.message.type == "text" &&
                     event.message.text == "歩数取得"
                   ) {
+                    let steps = "";
+                    await axios
+                      .get("https://linewalker.onrender.com/user/steps")
+                      .then((data) => {
+                        steps = data.data;
+                      });
                     await line.client.replyMessage(event.replyToken, {
                       type: "text",
-                      text: "",
+                      text: steps,
                     });
                   } else {
                     await line.client.replyMessage(event.replyToken, {
                       type: "text",
                       text: `対応外のメッセージです`,
-                      // text: `${
-                      //   event.message.type == "text" ? event.message.text : null
-                      // }`,
                     });
                   }
                   break;
