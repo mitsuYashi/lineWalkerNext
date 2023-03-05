@@ -38,8 +38,6 @@ export default function Home() {
     index != 0 ? num - steps[index - 1] : null
   );
 
-  console.log(diffSteps);
-
   const data = [
     { name: "3/1", steps: steps[0], diff: diffSteps[0] },
     { name: "3/2", steps: steps[1], diff: diffSteps[1] },
@@ -96,18 +94,14 @@ export default function Home() {
         </div>
         <div
           style={{
+            display: "flex",
+            justifyContent: "center",
             backgroundColor: "#fff",
             borderRadius: "10px",
-            margin: "10px auto",
+            // margin: "10px",
             padding: "20px 10px",
           }}
         >
-          {/* <LineChart data={data} width={1000} height={400}>
-            <Line type="monotone" dataKey="steps" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" />
-            <XAxis dataKey="name" />
-            <YAxis />
-          </LineChart> */}
           <LineChart
             width={1100}
             height={300}
@@ -130,7 +124,7 @@ export default function Home() {
               yAxisId="1"
             />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign="top" height={30} iconSize={20} />
             <Line type="monotone" dataKey="diff" stroke="#8884d8" yAxisId="2" />
           </LineChart>
         </div>
