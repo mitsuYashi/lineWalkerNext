@@ -19,7 +19,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*", "./lib/*"]
-    }
+    },
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
