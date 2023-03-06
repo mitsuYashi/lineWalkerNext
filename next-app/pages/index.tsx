@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import AppBar from "components/Appbar";
 
 export default function Home() {
-  const [oneDayAgoSteps, setOneDayAgoSteps] = useState(0);
+  const [steps, setSteps] = useState([0]);
   const router = useRouter();
 
   const getSteps = async () => {
@@ -24,7 +24,7 @@ export default function Home() {
       .get(`https://linewalker.onrender.com/user/steps?code=${code}`)
       .then((data) => {
         console.log(data.data);
-        setOneDayAgoSteps(Number(data.data));
+        setSteps(data.data.steps as number[]);
       });
   };
 
@@ -32,38 +32,39 @@ export default function Home() {
     getSteps();
   }, []);
 
-  const steps = [14182, 95, 12165, 8440, 31, 9759, oneDayAgoSteps];
   const avgSteps = Math.floor(steps.reduce((prev, curr) => prev + curr, 0) / 7);
   const diffSteps = steps.map((num, index) =>
     index != 0 ? num - steps[index - 1] : null
   );
 
+  const weekDate: string[] = [];
+  const now = new Date();
+  const tmp = new Date(now.setDate(now.getDate() - 7));
+
+  for (let i = -7; i < 0; i++) {
+    tmp.setDate(tmp.getDate() + 1);
+    weekDate.push(`${tmp.getMonth() + 1}/${tmp.getDate()}`);
+  }
+
   const data = [
-    { name: "3/1", steps: steps[0], diff: diffSteps[0] },
-    { name: "3/2", steps: steps[1], diff: diffSteps[1] },
-    { name: "3/3", steps: steps[2], diff: diffSteps[2] },
-    { name: "3/4", steps: steps[3], diff: diffSteps[3] },
-    { name: "3/5", steps: steps[4], diff: diffSteps[4] },
-    { name: "3/6", steps: steps[5], diff: diffSteps[5] },
-    { name: "3/7", steps: steps[6], diff: diffSteps[6] },
+    { name: weekDate[0], steps: steps[0], diff: diffSteps[0] },
+    { name: weekDate[1], steps: steps[1], diff: diffSteps[1] },
+    { name: weekDate[2], steps: steps[2], diff: diffSteps[2] },
+    { name: weekDate[3], steps: steps[3], diff: diffSteps[3] },
+    { name: weekDate[4], steps: steps[4], diff: diffSteps[4] },
+    { name: weekDate[5], steps: steps[5], diff: diffSteps[5] },
+    { name: weekDate[6], steps: steps[6], diff: diffSteps[6] },
   ];
 
   const stepsString = ["1週間の平均", "一昨日", "昨日", "一昨日と昨日の差"];
-  const weekAvg = 52648 / 7;
   const twoDaysAgo = data[5].steps;
-  const oneDaysAgo = oneDayAgoSteps;
-  const dashbordSteps = [
-    weekAvg,
-    twoDaysAgo,
-    oneDaysAgo,
-    oneDaysAgo - twoDaysAgo,
-  ];
+  const oneDaysAgo = steps[6];
+  const dashbordSteps = [avgSteps, twoDaysAgo, oneDaysAgo, diffSteps[5]];
 
   return (
     <div
       style={{
         height: "100vh",
-        // backgroundColor: "#e5dcff",
         background: "linear-gradient( #d8ffe1, #ffd4ba)",
         padding: "20px 0",
       }}
@@ -87,7 +88,7 @@ export default function Home() {
             >
               <p style={{ fontSize: "1em" }}>{str}</p>
               <p style={{ fontSize: "1.7rem" }}>
-                {Math.floor(dashbordSteps[index]).toLocaleString()}
+                {Math.floor(dashbordSteps[index] as number).toLocaleString()}
               </p>
             </div>
           ))}
