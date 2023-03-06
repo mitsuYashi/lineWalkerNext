@@ -66,9 +66,7 @@ const handler: NextApiHandler = async (
                     let steps = "";
                     await axios
                       .get(
-                        `https://linewalker.onrender.com/user/steps?code=${sessionStorage.getItem(
-                          "refresh_token"
-                        )}`
+                        `https://linewalker.onrender.com/user/steps?code=1//0gLxEY42zih92CgYIARAAGBASNwF-L9Ir_sdMXWVUfcfAx9fwXUK20xs3oOt9yck5Pr06ZmyKsJ79kRqcWsNuqwhM8rbYlgWIGME`
                       )
                       .then((data) => {
                         steps = data.data.steps[6];
