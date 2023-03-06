@@ -4,6 +4,7 @@ import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
 import { MessageEvent } from "@line/bot-sdk/lib/types";
 import axios from "axios";
+// const { createCanvas, loadImage } = require("canvas");
 
 export const config = {
   api: {
@@ -66,7 +67,7 @@ const handler: NextApiHandler = async (
                     let steps = "";
                     await axios
                       .get(
-                        `https://linewalker.onrender.com/user/steps?code=1//0gLxEY42zih92CgYIARAAGBASNwF-L9Ir_sdMXWVUfcfAx9fwXUK20xs3oOt9yck5Pr06ZmyKsJ79kRqcWsNuqwhM8rbYlgWIGME`
+                        `https://linewalker.onrender.com/user/steps?code=${process.env.CODE}`
                       )
                       .then((data) => {
                         steps = data.data.steps[6];
@@ -75,6 +76,10 @@ const handler: NextApiHandler = async (
                       type: "text",
                       text: steps,
                     });
+                  } else if (
+                    event.message.type == "text" &&
+                    event.message.text == "グラフ"
+                  ) {
                   } else {
                     await line.client.replyMessage(event.replyToken, {
                       type: "text",
