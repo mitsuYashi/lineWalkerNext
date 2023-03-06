@@ -59,7 +59,7 @@ export default function Home() {
   const stepsString = ["1週間の平均", "一昨日", "昨日", "一昨日と昨日の差"];
   const twoDaysAgo = data[5].steps;
   const oneDaysAgo = steps[6];
-  const dashbordSteps = [avgSteps, twoDaysAgo, oneDaysAgo, diffSteps[5]];
+  const dashbordSteps = [avgSteps, twoDaysAgo, oneDaysAgo, diffSteps[6]];
 
   return (
     <div
