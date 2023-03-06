@@ -4,7 +4,6 @@ import { Middleware } from "@line/bot-sdk/lib/middleware";
 import * as line from "../../lib/line";
 import { MessageEvent } from "@line/bot-sdk/lib/types";
 import axios from "axios";
-// const { createCanvas, loadImage } = require("canvas");
 
 export const config = {
   api: {
