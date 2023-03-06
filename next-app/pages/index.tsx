@@ -65,7 +65,8 @@ export default function Home() {
     <div
       style={{
         height: "100vh",
-        background: "linear-gradient( #d8ffe1, #ffd4ba)",
+        background: "linear-gradient(#c3ffba,#cee5e2)",
+        // backgroundColor: "#CEE5e2",
         padding: "20px 0",
       }}
     >
