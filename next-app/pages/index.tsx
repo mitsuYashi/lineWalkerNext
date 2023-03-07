@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import axios from "axios";
-import ResponsiveAppBar from "components/Appbar";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AppBar from "components/Appbar";
@@ -21,7 +20,7 @@ export default function Home() {
   const getSteps = async () => {
     const code = sessionStorage.getItem("refresh_token");
     const step = await axios
-      .get(`https://linewalker.onrender.com/user/steps?code=${code}`)
+      .get(`https://linewalker.onrender.com/user/steps`)
       .then((data) => {
         console.log(data.data);
         setSteps(data.data.steps as number[]);
@@ -39,7 +38,7 @@ export default function Home() {
 
   const weekDate: string[] = [];
   const now = new Date();
-  const tmp = new Date(now.setDate(now.getDate() - 7));
+  const tmp = new Date(now.setDate(now.getDate() - 8));
 
   for (let i = -7; i < 0; i++) {
     tmp.setDate(tmp.getDate() + 1);
