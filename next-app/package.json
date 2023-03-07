@@ -35,6 +35,7 @@
     "typescript": "4.8.4"
   },
   "devDependencies": {
+    "@types/plotly.js": "^2.12.18",
     "@typescript-eslint/eslint-plugin": "^5.42.1",
     "@typescript-eslint/parser": "^5.42.1",
     "eslint": "^8.27.0",

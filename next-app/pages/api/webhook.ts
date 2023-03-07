@@ -65,11 +65,9 @@ const handler: NextApiHandler = async (
                   ) {
                     let steps = "";
                     await axios
-                      .get(
-                        `https://linewalker.onrender.com/user/steps?code=${process.env.CODE}`
-                      )
+                      .get(`https://linewalker.onrender.com/user/nouser/steps`)
                       .then((data) => {
-                        steps = data.data.steps[6];
+                        steps = data.data;
                       });
                     await line.client.replyMessage(event.replyToken, {
                       type: "text",
