@@ -19,12 +19,12 @@ export default function Home() {
 
   const getSteps = async () => {
     const code = sessionStorage.getItem("refresh_token");
-    const step = await axios
-      .get(`https://linewalker.onrender.com/user/steps`)
-      .then((data) => {
-        console.log(data.data);
-        setSteps(data.data.steps as number[]);
-      });
+    // const step = await axios
+    //   .get(`https://linewalker.onrender.com/user/steps`)
+    //   .then((data) => {
+    //     console.log(data.data);
+    //     setSteps(data.data.steps as number[]);
+    //   });
     setSteps([14182, 95, 12165, 8440, 58, 9759, 14017]);
   };
 
