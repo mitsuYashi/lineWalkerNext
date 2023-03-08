@@ -25,6 +25,7 @@ export default function Home() {
         console.log(data.data);
         setSteps(data.data.steps as number[]);
       });
+    setSteps([14182, 95, 12165, 8440, 58, 9759, 14017]);
   };
 
   useEffect(() => {
