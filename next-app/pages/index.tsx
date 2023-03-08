@@ -89,7 +89,7 @@ export default function Home() {
             >
               <p style={{ fontSize: "1em" }}>{str}</p>
               <p style={{ fontSize: "1.7rem" }}>
-                {Math.floor(dashbordSteps[index] as number).toLocaleString()}
+                {Math.floor(dashbordSteps[index] as number).toLocaleString()}歩
               </p>
             </div>
           ))}
